@@ -1,10 +1,10 @@
 import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC } from 'react';
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
 
 import { IEmojiPickerProps } from './EmojiPicker.config';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { MdEmojiEmotions } from 'react-icons/md';
 
 const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] }) => {
   const {
@@ -13,7 +13,12 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] 
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>
-       <Picker data={data}/>
+      <div className={`emoji-icon  flex items-center	`}>
+        <span>
+          <MdEmojiEmotions />
+        </span>
+        <IoMdArrowDropdown className="cursor-pointer" />
+      </div>
     </div>
   );
 };
