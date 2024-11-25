@@ -11,23 +11,39 @@ import { MdEmojiEmotions } from 'react-icons/md';
 const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<string>();
-  const [display, setDisplay] = useState<string>('hidden');
+  const [isVisible, setVisible] = useState<boolean>(false);
 
   const {
     sources: { datasource: ds },
   } = useSources();
 
   useEffect(() => {
+    if (!ds) return;
+    const listener = async (/* event */) => {
+      const v = await ds.getValue<string>();
+      setValue(v || '');
+    };
+
+    listener();
+
+    ds.addListener('changed', listener);
+
+    return () => {
+      ds.removeListener('changed', listener);
+    };
+  }, [ds]);
+
+  useEffect(() => {
     ds.setValue(null, value);
   }, [value]);
 
   const handleClick = (event: any) => {
-    setDisplay('hidden');
+    setVisible((prev) => !prev);
     setValue(event.native);
   };
 
   const setVisibility = () => {
-    setDisplay('block');
+    setVisible((prev) => !prev);
   };
 
   return (
@@ -36,9 +52,11 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] 
         <span>{value ? value : <MdEmojiEmotions />}</span>
         <IoMdArrowDropdown onClick={setVisibility} className="cursor-pointer" />
       </div>
-      <div className={`emoji-picker absolute z-10	${display}`}>
-        <Picker data={data} onEmojiSelect={(emoji: any) => handleClick(emoji)} />
-      </div>
+      {isVisible && (
+        <div className={`emoji-picker absolute z-10`}>
+          <Picker data={data} onEmojiSelect={(emoji: any) => handleClick(emoji)} />
+        </div>
+      )}
     </div>
   );
 };
