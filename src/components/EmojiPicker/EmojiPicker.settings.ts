@@ -3,10 +3,40 @@ import { BASIC_SETTINGS, DEFAULT_SETTINGS, load } from '@ws-ui/webform-editor';
 
 const commonSettings: TSetting[] = [
   {
-    key: 'name',
-    label: 'Name',
-    type: ESetting.TEXT_FIELD,
-    defaultValue: 'Qodly',
+    key: 'theme',
+    label: 'Theme',
+    type: ESetting.SELECT,
+    options: [
+      {
+        label: 'Light',
+        value: 'light',
+      },
+      {
+        label: 'Dark',
+        value: 'dark',
+      },
+    ],
+    defaultValue: 'light',
+  },
+  {
+    key: 'navPosition',
+    label: 'Nav position',
+    type: ESetting.SELECT,
+    options: [
+      {
+        label: 'Top',
+        value: 'top',
+      },
+      {
+        label: 'Bottom',
+        value: 'bottom',
+      },
+      {
+        label: 'None',
+        value: 'none',
+      },
+    ],
+    defaultValue: 'top',
   },
 ];
 
