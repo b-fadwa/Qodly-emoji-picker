@@ -56,7 +56,9 @@ export default {
       accept: ['string'],
     },
   },
-  defaultProps: {},
+  defaultProps: {
+    style: { width: 'fit-content' },
+  },
 } as T4DComponentConfig<IEmojiPickerProps>;
 
 export interface IEmojiPickerProps extends webforms.ComponentProps {}
