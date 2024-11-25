@@ -8,7 +8,13 @@ import Picker from '@emoji-mart/react';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { MdEmojiEmotions } from 'react-icons/md';
 
-const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] }) => {
+const EmojiPicker: FC<IEmojiPickerProps> = ({
+  theme,
+  navPosition,
+  style,
+  className,
+  classNames = [],
+}) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<string>();
   const [isVisible, setVisible] = useState<boolean>(false);
@@ -54,7 +60,12 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({ style, className, classNames = [] 
       </div>
       {isVisible && (
         <div className={`emoji-picker absolute z-10`}>
-          <Picker data={data} onEmojiSelect={(emoji: any) => handleClick(emoji)} />
+          <Picker
+            data={data}
+            onEmojiSelect={(emoji: any) => handleClick(emoji)}
+            theme={theme}
+            navPosition={navPosition}
+          />
         </div>
       )}
     </div>

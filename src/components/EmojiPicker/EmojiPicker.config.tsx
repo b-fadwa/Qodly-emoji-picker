@@ -61,4 +61,7 @@ export default {
   },
 } as T4DComponentConfig<IEmojiPickerProps>;
 
-export interface IEmojiPickerProps extends webforms.ComponentProps {}
+export interface IEmojiPickerProps extends webforms.ComponentProps {
+  theme?: string;
+  navPosition?: string;
+}
